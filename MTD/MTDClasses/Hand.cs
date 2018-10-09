@@ -161,7 +161,7 @@ namespace MTDClasses
         {
             for (int i = 0; i < Count; i++)
             {
-                if (playerHand[i].Side1 == value && playerHand[i].Side2 == value)
+                if (playerHand[i].Side1 == value && playerHand[i].IsDouble())
                     return i;
             }
             return -1;
@@ -195,7 +195,10 @@ namespace MTDClasses
             set => playerHand[index] = value;
         }
 
-
+        /// <summary>
+        /// Removes domino from specified index
+        /// </summary>
+        /// <param name="index"></param>
         public void RemoveAt(int index)
         {
             playerHand.RemoveAt(index);

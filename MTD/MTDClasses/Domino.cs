@@ -9,21 +9,41 @@ namespace MTDClasses
     [Serializable()]
     public class Domino
     {
+        /// <summary>
+        /// Constants to control the minimum number of pips and the maximum number of pips on a domino
+        /// </summary>
+        const int MINPIPS = 0;
+        const int MAXPIPS = 12;
+        
+        /// <summary>
+        /// Sides of the domino
+        /// </summary>
         private int side1;                                                  // the domino has sides
         private int side2;
 
+        /// <summary>
+        /// Makes a 0,0 domino
+        /// </summary>
         public Domino()
         {
             Side1 = 0;                                                      // and a default constructor
             Side2 = 0;
         }
 
+        /// <summary>
+        /// Makes a domino with the designated sides
+        /// </summary>
+        /// <param name="p1">soon to be side 1</param>
+        /// <param name="p2">soon to be side 2</param>
         public Domino(int p1, int p2)                                       // and a constructor for the rest of the dominoes
         {
             Side1 = p1;
             Side2 = p2;
         }
 
+        /// <summary>
+        /// Sets the value of side 1 within the specified constraints
+        /// </summary>
         // don't use an auto implemented property because of the validation in the setter - p 390
         public int Side1
         {
@@ -33,14 +53,16 @@ namespace MTDClasses
             }
             set
             {
-                if (value >= 0 && value <= 12)                                  // you can only make legitimate dominoes
+                if (value >= MINPIPS && value <= MAXPIPS)                                  // you can only make legitimate dominoes
                     side1 = value;
                 else
                     throw new ArgumentException("A 12 pip domino cannot have that value.  Value must be between 0 and 12.");
             }
         }
 
-
+        /// <summary>
+        /// Same as side1, but for side2
+        /// </summary>
         public int Side2
         {
             get
@@ -49,21 +71,27 @@ namespace MTDClasses
             }
             set
             {
-                if (value >= 0 && value <= 12)                                  // the secone side has to be legit too
+                if (value >= MINPIPS && value <= MAXPIPS)                                  // the secone side has to be legit too
                     side2 = value;
                 else
                     throw new ArgumentException("A 12 pip domino cannot have that value.  Value must be between 0 and 12.");
             }
         }
 
+        /// <summary>
+        /// Swaps side1 and side2
+        /// </summary>
         public void Flip()
         {
-            int temp = side1;
-            side1 = side2;
-            side2 = temp;
+            int temp = Side1;
+            Side1 = Side2;
+            Side2 = temp;
         }
 
-        /// This is how I would have done this in 233N
+        /// <summary>
+        /// Returns the score of a single domino, which is the sum of its parts
+        /// </summary>
+        // This is how I would have done this in 233N
         public int Score
         {
             get
@@ -75,6 +103,10 @@ namespace MTDClasses
         // because it's a read only property, I can use the "expression bodied syntax" or a lamdba expression - p 393
         //public int Score => side1 + side2;
 
+        /// <summary>
+        /// Checks to see if the domino is a double
+        /// </summary>
+        /// <returns></returns>
         //ditto for the first version of this method and the next one
         public bool IsDouble()
         {

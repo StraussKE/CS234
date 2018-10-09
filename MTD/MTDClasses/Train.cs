@@ -11,9 +11,15 @@ namespace MTDClasses
     public abstract class Train
     {
 
+        /// <summary>
+        /// The list of dominos in the train
+        /// </summary>
         protected List<Domino> currentTrain;
         protected int reqEngVal;
-        
+
+        /// <summary>
+        /// Creates an empty train
+        /// </summary>
         public Train()
         {
             currentTrain = new List<Domino>();
@@ -45,11 +51,9 @@ namespace MTDClasses
         /// </summary>
         public int PlayableValue => LastDomino.Side2;
 
-        /*
-        public void Add(Domino d)
-        {
-        }
-        */
+
+        public void Add(Domino d) => currentTrain.Add(d);
+        
 /*
         public Domino this[int index]
         {
@@ -72,7 +76,7 @@ namespace MTDClasses
         // assumes the domino has already been removed from the hand
         public void Play(Hand h, Domino d)
         {
-
+            Add(d);
         }
         /*
         public override string ToString()
