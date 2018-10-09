@@ -11,7 +11,9 @@ namespace MTDClasses
     /// </summary>
     public class Hand
     {
-        /*
+        private List<Domino> playerHand;
+        private const int MAXPIPS = 12;
+
         /// <summary>
         /// The list of dominos in the hand
         /// </summary>
@@ -21,6 +23,7 @@ namespace MTDClasses
         /// </summary>
         public Hand()
         {
+            playerHand = new List<Domino>();
         }
 
         /// <summary>
@@ -32,28 +35,72 @@ namespace MTDClasses
         /// </summary>
         /// <param name="by"></param>
         /// <param name="numPlayers"></param>
+
+
         public Hand(BoneYard by, int numPlayers)
         {
+            switch (numPlayers)
+            {
+                case 2:
+                case 3:
+                case 4:
+                    playerHand = new List<Domino>(10);
+                    while (Count < 10)
+                    {
+                        Draw(by);
+                    }
+                    break;
+                case 5:
+                case 6:
+                    playerHand = new List<Domino>(9);
+                    while (Count < 9)
+                    {
+                        Draw(by);
+                    }
+                    break;
+                case 7:
+                case 8:
+                    playerHand = new List<Domino>(7);
+                    while (Count < 7)
+                    {
+                        Draw(by);
+                    }
+                    break;
+                default:
+                    throw new ArgumentException("Invalid quantity of players");
+            }
         }
 
         public void Add(Domino d)
         {
+            playerHand.Add(d);
         }
-
 
         public int Count
         {
+            get
+            {
+                return playerHand.Count;
+            }
         }
+    
 
-        public bool IsEmpty
-        {
-        }
+        public bool IsEmpty() => (Count == 0) ? true : false;
 
         /// <summary>
         /// Sum of the score of each domino in the hand
         /// </summary>
         public int Score
         {
+            get
+            {
+                int score = 0;
+                foreach (Domino d in playerHand)
+                {
+                    score += d.Score;
+                }
+                return score;
+            }
         }
 
         /// <summary>
@@ -62,14 +109,26 @@ namespace MTDClasses
         /// <param name="value">The number of dots on one side of the domino that you're looking for</param>
         public bool HasDomino(int value)
         {
+            foreach (Domino d in playerHand)
+            {
+                if (d.Side1 == value || d.Side2 == value)
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
-        ///  DOes the hand contain a double of a certain value?
+        ///  Does the hand contain a double of a certain value?
         /// </summary>
         /// <param name="value">The number of (double) dots that you're looking for</param>
         public bool HasDoubleDomino(int value)
         {
+            foreach (Domino d in playerHand)
+            {
+                if (d.Side1 == value && d.Side2 == value)
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -79,31 +138,57 @@ namespace MTDClasses
         /// <returns>-1 if the domino doesn't exist in the hand</returns>
         public int IndexOfDomino(int value)
         {
+            for (int i = 0; i < Count; i++)
+            {
+                if (playerHand[i].Side1 == value || playerHand[i].Side2 == value)
+                    return i;
+            }
+            return -1;
         }
 
         /// <summary>
-        /// The index of the do
+        /// The index of the double domino with a value in the hand
         /// </summary>
         /// <param name="value">The number of (double) dots that you're looking for</param>
         /// <returns>-1 if the domino doesn't exist in the hand</returns>
         public int IndexOfDoubleDomino(int value)
         {
+            for (int i = 0; i < Count; i++)
+            {
+                if (playerHand[i].Side1 == value && playerHand[i].Side2 == value)
+                    return i;
+            }
+            return -1;
         }
 
         /// <summary>
         /// The index of the highest double domino in the hand
         /// </summary>
         /// <returns>-1 if there isn't a double in the hand</returns>
+
         public int IndexOfHighDouble()
         {
+            int areYouTheOne;
+            for (int i = MAXPIPS; i >= 0; i--)
+            {
+                areYouTheOne = IndexOfDoubleDomino(i);
+                if (areYouTheOne != -1)
+                    return areYouTheOne;
+            }
+            return -1;
         }
+
 
         public Domino this[int index]
         {
+            get => playerHand[index];
+            set => playerHand[index] = value;
         }
+
 
         public void RemoveAt(int index)
         {
+            playerHand.RemoveAt(index);
         }
 
         /// <summary>
@@ -115,8 +200,14 @@ namespace MTDClasses
         /// <returns></returns>
         public Domino GetDomino(int value)
         {
+            int index = (IndexOfDomino(value));
+            if (index == -1)
+                return null;
+            Domino gotIt = playerHand[index];
+            RemoveAt(index);
+            return gotIt;
         }
-
+ 
         /// <summary>
         /// Finds a domino with a certain number of double dots in the hand.
         /// If it can find the domino, it removes it from the hand and returns it.
@@ -125,15 +216,22 @@ namespace MTDClasses
         /// <param name="value"></param>
         /// <returns></returns>
         public Domino GetDoubleDomino(int value)
-        {
-        }
-
+           {
+               int index = (IndexOfDomino(value));
+               if (index == -1)
+                   return null;
+               Domino gotIt = playerHand[index];
+               RemoveAt(index);
+               return gotIt;
+           }
+ 
         /// <summary>
         /// Draws a domino from the boneyard and adds it to the hand
         /// </summary>
         /// <param name="by"></param>
         public void Draw(BoneYard by)
         {
+            Add(by.Draw());
         }
 
         /// <summary>
@@ -147,7 +245,21 @@ namespace MTDClasses
         /// <param name="t"></param>
         private void Play(int index, Train t)
         {
+            Domino d = this.playerHand[index];
+            if (d.Side1 != t.PlayableValue && d.Side2 != t.PlayableValue)
+            {
+                throw new ArgumentException("The selected domino is not playable on the selected train.");
+            }
+            if (d.Side2 == t.PlayableValue)
+            {
+                if (d.Side1 != t.PlayableValue)
+                {
+                    d.Flip();
+                }
+            }
+            RemoveAt(index);
         }
+  /*
 
         /// <summary>
         /// Plays the domino from the hand on the train.
@@ -175,6 +287,6 @@ namespace MTDClasses
         public override string ToString()
         {
         }
-        */
+    */    
     }
 }
