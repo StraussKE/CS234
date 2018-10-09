@@ -25,6 +25,10 @@ namespace MTDClasses
             currentTrain = new List<Domino>();
         }
 
+        /// <summary>
+        /// Creates an empty train with an expected engine value
+        /// </summary>
+        /// <param name="engValue"></param>
         public Train(int engValue)
         {
             currentTrain = new List<Domino>();
@@ -42,8 +46,15 @@ namespace MTDClasses
             set => reqEngVal = value;
         }
 
+        /// <summary>
+        /// Checks if there are any tiles in the train
+        /// </summary>
+        /// <returns></returns>
         public bool IsEmpty() => (Count == 0) ? true : false;
 
+        /// <summary>
+        /// Tracks the tail of the train
+        /// </summary>
         public Domino LastDomino => currentTrain[Count - 1];
 
         /// <summary>
@@ -52,13 +63,19 @@ namespace MTDClasses
         public int PlayableValue => LastDomino.Side2;
 
 
+        /// <summary>
+        /// Adds a specified domino to the end of the train
+        /// </summary>
+        /// <param name="d">the domino being added</param>
         public void Add(Domino d) => currentTrain.Add(d);
         
-/*
+
         public Domino this[int index]
         {
+            get { return currentTrain[index]; }
+            set { currentTrain[index] = value; }
         }
-        
+ /*       
         /// <summary>
         /// Determines whether a hand can play a specific domino on this train and if the domino must be flipped.
         /// Because the rules for playing are different for Mexican and Player trains, this method is abstract.
