@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MTDClasses
 {
-    public class PlayerTrain
+    public class PlayerTrain : Train
     {
         /*
         public PlayerTrain(Hand h): base()

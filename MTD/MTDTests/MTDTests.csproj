@@ -46,10 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoneYardTests.cs" />
     <Compile Include="DominoTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="MTDTests.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

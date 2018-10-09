@@ -11,12 +11,16 @@ namespace MTDClasses
     /// </summary>
     public class Hand
     {
-        private List<Domino> playerHand;
+
+        /// <summary>
+        /// The maximum number of pips allowable
+        /// </summary>
         private const int MAXPIPS = 12;
 
         /// <summary>
         /// The list of dominos in the hand
         /// </summary>
+        private List<Domino> playerHand;
 
         /// <summary>
         /// Creates an empty hand
@@ -35,8 +39,6 @@ namespace MTDClasses
         /// </summary>
         /// <param name="by"></param>
         /// <param name="numPlayers"></param>
-
-
         public Hand(BoneYard by, int numPlayers)
         {
             switch (numPlayers)
@@ -71,20 +73,24 @@ namespace MTDClasses
             }
         }
 
+        /// <summary>
+        /// Adds a domino to the hand
+        /// </summary>
+        /// <param name="d"></param>
         public void Add(Domino d)
         {
             playerHand.Add(d);
         }
 
-        public int Count
-        {
-            get
-            {
-                return playerHand.Count;
-            }
-        }
-    
+        /// <summary>
+        /// Tracks the number of dominos currently in the hand
+        /// </summary>
+        public int Count => playerHand.Count;
 
+        /// <summary>
+        /// Checks to see if the hand is empty
+        /// </summary>
+        /// <returns></returns>
         public bool IsEmpty() => (Count == 0) ? true : false;
 
         /// <summary>
@@ -178,7 +184,11 @@ namespace MTDClasses
             return -1;
         }
 
-
+        /// <summary>
+        /// indexer
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public Domino this[int index]
         {
             get => playerHand[index];
