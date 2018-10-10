@@ -88,13 +88,13 @@ namespace MTDClasses
         /// </summary>
         protected bool IsPlayable(Domino d, out bool mustFlip)
         {
-            if (d.Side1 != t.PlayableValue && d.Side2 != t.PlayableValue)
+            if (d.Side1 != PlayableValue && d.Side2 != PlayableValue)
             {
                 return false;
             }
-            if (d.Side2 == t.PlayableValue)
+            if (d.Side2 == PlayableValue)
             {
-                if (d.Side1 != t.PlayableValue)
+                if (d.Side1 != PlayableValue)
                 {
                     mustFlip = true;
                 }
