@@ -257,20 +257,16 @@ namespace MTDClasses
         /// <param name="t"></param>
         private void Play(int index, Train t)
         {
-            Domino d = this.playerHand[index];
-            if (d.Side1 != t.PlayableValue && d.Side2 != t.PlayableValue)
+            Domino d = playerHand[index];
+            bool mustFlip = false;
+            if (! t.IsPlayable(this, d, out mustFlip))
             {
                 throw new ArgumentException("The selected domino is not playable on the selected train.");
             }
-            if (d.Side2 == t.PlayableValue)
-            {
-                if (d.Side1 != t.PlayableValue)
-                {
-                    d.Flip();
-                }
-            }
+            if (mustFlip == true)
+                d.Flip();
             RemoveAt(index);
-            t.Add(d);
+            t.Play(this, d);
         }
   
 
@@ -283,20 +279,8 @@ namespace MTDClasses
         /// </summary>
         public void Play(Domino d, Train t)
         {
-            bool located = false;
-            int index = 0;
-
-            do
-            {
-                if (this.playerHand[index] == d)
-                {
-                    located = true;
-                }
-                else
-                { index++; }
-            } while (located == false && index < Count);
-
-            if (located == false)
+            int index = playerHand.IndexOf(d);
+            if (index == -1)
             {
                 throw new ArgumentException("Selected domino is not contained in this hand.");
             }
@@ -326,6 +310,7 @@ namespace MTDClasses
                 }
             }
             this.playerHand.Remove(d);
+            t.Add(d);
             return d;
         }
 

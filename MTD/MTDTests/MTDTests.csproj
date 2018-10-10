@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BoneYardTests.cs" />
     <Compile Include="DominoTests.cs" />
+    <Compile Include="HandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

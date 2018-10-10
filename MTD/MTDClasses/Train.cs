@@ -75,7 +75,7 @@ namespace MTDClasses
             get { return currentTrain[index]; }
             set { currentTrain[index] = value; }
         }
- /*       
+       
         /// <summary>
         /// Determines whether a hand can play a specific domino on this train and if the domino must be flipped.
         /// Because the rules for playing are different for Mexican and Player trains, this method is abstract.
@@ -88,8 +88,20 @@ namespace MTDClasses
         /// </summary>
         protected bool IsPlayable(Domino d, out bool mustFlip)
         {
+            if (d.Side1 != t.PlayableValue && d.Side2 != t.PlayableValue)
+            {
+                return false;
+            }
+            if (d.Side2 == t.PlayableValue)
+            {
+                if (d.Side1 != t.PlayableValue)
+                {
+                    mustFlip = true;
+                }
+            }
+            return true;
         }
-*/
+
         // assumes the domino has already been removed from the hand
         public void Play(Hand h, Domino d)
         {
