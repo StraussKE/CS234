@@ -171,7 +171,6 @@ namespace MTDClasses
         /// The index of the highest double domino in the hand
         /// </summary>
         /// <returns>-1 if there isn't a double in the hand</returns>
-
         public int IndexOfHighDouble()
         {
             int areYouTheOne;
@@ -271,8 +270,9 @@ namespace MTDClasses
                 }
             }
             RemoveAt(index);
+            t.Add(d);
         }
-  /*
+  
 
         /// <summary>
         /// Plays the domino from the hand on the train.
@@ -283,6 +283,24 @@ namespace MTDClasses
         /// </summary>
         public void Play(Domino d, Train t)
         {
+            bool located = false;
+            int index = 0;
+
+            do
+            {
+                if (this.playerHand[index] == d)
+                {
+                    located = true;
+                }
+                else
+                { index++; }
+            } while (located == false && index < Count);
+
+            if (located == false)
+            {
+                throw new ArgumentException("Selected domino is not contained in this hand.");
+            }
+            Play(index, t);
         }
 
         /// <summary>
@@ -295,11 +313,31 @@ namespace MTDClasses
         /// <returns></returns>
         public Domino Play(Train t)
         {
+            Domino d = GetDomino(t.PlayableValue);
+            if (d == null)
+            {
+                throw new ArgumentException("There is no playable domino in this hand");
+            }
+            if (d.Side2 == t.PlayableValue)
+            {
+                if (d.Side1 != t.PlayableValue)
+                {
+                    d.Flip();
+                }
+            }
+            this.playerHand.Remove(d);
+            return d;
         }
 
         public override string ToString()
         {
+            string showHand = null;
+            foreach (Domino d in this.playerHand)
+            {
+                showHand = d.ToString() + " ";
+            }
+            return showHand;
         }
-    */    
+        
     }
 }
