@@ -88,6 +88,7 @@ namespace MTDClasses
         /// </summary>
         protected bool IsPlayable(Domino d, out bool mustFlip)
         {
+            mustFlip = false;
             if (d.Side1 != PlayableValue && d.Side2 != PlayableValue)
             {
                 return false;
@@ -107,12 +108,15 @@ namespace MTDClasses
         {
             Add(d);
         }
-        /*
+        
         public override string ToString()
         {
+            string chooChoo = null;
+            foreach (Domino d in currentTrain)
+            {
+                chooChoo = d.ToString() + " ";
+            }
+            return chooChoo;
         }
-        */
-
     }
-
 }

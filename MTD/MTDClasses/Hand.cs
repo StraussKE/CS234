@@ -309,7 +309,7 @@ namespace MTDClasses
                     d.Flip();
                 }
             }
-            this.playerHand.Remove(d);
+            playerHand.Remove(d);
             t.Add(d);
             return d;
         }
@@ -317,7 +317,7 @@ namespace MTDClasses
         public override string ToString()
         {
             string showHand = null;
-            foreach (Domino d in this.playerHand)
+            foreach (Domino d in playerHand)
             {
                 showHand = d.ToString() + " ";
             }
