@@ -139,18 +139,33 @@ namespace MTDTests
 
             Assert.AreEqual(3, empty.IndexOfDoubleDomino(4));
             Assert.AreEqual(2, empty.IndexOfHighDouble());
-
-
         }
 
 
         [Test]
         public void testGetDomino()
         {
-            empty.Draw(maxTwelve);
+            Assert.AreEqual(null, empty.GetDomino(0));
+
+            empty.Add(new Domino(12, 12));
+            empty.Add(new Domino(8, 7));
+            empty.Add(new Domino(3, 4));
+            empty.Add(new Domino(9, 9));
+            empty.Add(new Domino(8, 7));
+            empty.Add(new Domino(3, 4));
+
             Domino dBB = new Domino(12, 12);
+            Domino d99 = new Domino(9, 9);
+            Domino d87 = new Domino(8, 7);
+            Domino d34 = new Domino(3, 4);
 
             Assert.AreEqual(dBB, empty.GetDomino(12));
+            Assert.AreEqual(null, empty.GetDomino(12));
+
+            Assert.AreEqual(d87, empty.GetDomino(8));
+            Assert.AreEqual(d34, empty.GetDomino(4));
+
+            Assert.AreEqual(d99, empty.GetDoubleDomino(9));
 
         }
     }

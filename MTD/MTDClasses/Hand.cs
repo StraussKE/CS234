@@ -229,7 +229,7 @@ namespace MTDClasses
         /// <returns></returns>
         public Domino GetDoubleDomino(int value)
            {
-               int index = (IndexOfDomino(value));
+               int index = (IndexOfDoubleDomino(value));
                if (index == -1)
                    return null;
                Domino gotIt = playerHand[index];
