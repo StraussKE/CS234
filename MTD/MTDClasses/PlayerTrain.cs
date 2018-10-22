@@ -8,13 +8,13 @@ namespace MTDClasses
 {
     public class PlayerTrain : Train
     {
-        Hand myHand;
-        
-        public PlayerTrain(Hand h): base()
-        {
-            myHand = h;
-        }
-        
+        /// <summary>
+        /// This is the player hand that correlates to this player train
+        /// </summary>
+        private Hand myHand;
+
+        private bool isTrainOpen = false;
+
         /// <summary>
         /// This is the most appropriate constructor for the class.
         /// </summary>
@@ -24,20 +24,20 @@ namespace MTDClasses
         {
             myHand = h;
         }
-        /*
+
         /// <summary>
         /// Returns whether or not the train is open.  An open train
         /// can be played upon by any player.
         /// </summary>
-        public bool IsOpen
-        {
-        }
+        public bool IsOpen => isTrainOpen;
+        
 
         /// <summary>
         /// Open the train
         /// </summary>
         public void Open()
         {
+            isTrainOpen = true;
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace MTDClasses
         /// </summary>
         public void Close()
         {
+            isTrainOpen = false;
         }
-        */
         /// <summary>
         /// Can the domino d be played by the hand h on this train?
         /// If it can be played, must it be flipped to do so?
@@ -58,7 +58,12 @@ namespace MTDClasses
         public override bool IsPlayable(Hand h, Domino d, out bool mustFlip)
         {
             mustFlip = false;
-            if (myHand == h /*&& IsOpen == true*/)
+            if (myHand != h && IsOpen == true)
+            {
+                if (IsPlayable(d, out mustFlip))
+                    return true;
+            }
+            if (myHand == h)
             {
                 if (IsPlayable(d, out mustFlip))
                     return true;

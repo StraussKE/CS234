@@ -168,5 +168,11 @@ namespace MTDTests
             Assert.AreEqual(d99, empty.GetDoubleDomino(9));
 
         }
+
+        [Test]
+        public void testPlay()
+        {
+            
+        }
     }
 }
