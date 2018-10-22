@@ -20,7 +20,7 @@ namespace MTDClasses
         /// <summary>
         /// Creates an empty train
         /// </summary>
-        public Train()
+        protected Train()
         {
             currentTrain = new List<Domino>();
         }
@@ -29,13 +29,13 @@ namespace MTDClasses
         /// Creates an empty train with an expected engine value
         /// </summary>
         /// <param name="engValue"></param>
-        public Train(int engValue)
+        protected Train(int engValue)
         {
             currentTrain = new List<Domino>();
             EngineValue = engValue;
         }
 
-        public int Count => currentTrain.Count;
+        protected int Count => currentTrain.Count;
 
         /// <summary>
         /// The first domino value that must be played on a train

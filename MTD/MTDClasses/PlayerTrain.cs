@@ -14,7 +14,7 @@ namespace MTDClasses
         {
             myHand = h;
         }
-        /*
+        
         /// <summary>
         /// This is the most appropriate constructor for the class.
         /// </summary>
@@ -22,8 +22,9 @@ namespace MTDClasses
         /// <param name="engineValue">Represents the first playable value on the train</param>
         public PlayerTrain(Hand h, int engineValue) : base (engineValue)
         {
+            myHand = h;
         }
-
+        /*
         /// <summary>
         /// Returns whether or not the train is open.  An open train
         /// can be played upon by any player.

@@ -8,6 +8,18 @@ namespace MTDClasses
 {
     public class MexicanTrain : Train
     {
+        public MexicanTrain() : base()
+        {
+
+        }
+
+        public MexicanTrain(int engValue) : base(engValue)
+        {
+
+        }
+
+        
+        
         /// Can the domino d be played by the hand h on this train?
         /// If it can be played, must it be flipped to do so?
         /// </summary>
