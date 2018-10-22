@@ -60,7 +60,13 @@ namespace MTDClasses
         /// <summary>
         /// Side2 of the last domino in the train.  It's the value of the next domino that can be played.
         /// </summary>
-        public int PlayableValue => LastDomino.Side2;
+        public int PlayableValue()
+        {
+            if (IsEmpty())
+                return EngineValue;
+            else
+                return LastDomino.Side2;
+        }
 
 
         /// <summary>
@@ -89,13 +95,13 @@ namespace MTDClasses
         protected bool IsPlayable(Domino d, out bool mustFlip)
         {
             mustFlip = false;
-            if (d.Side1 != PlayableValue && d.Side2 != PlayableValue)
+            if (d.Side1 != PlayableValue() && d.Side2 != PlayableValue())
             {
                 return false;
             }
-            if (d.Side2 == PlayableValue)
+            if (d.Side2 == PlayableValue())
             {
-                if (d.Side1 != PlayableValue)
+                if (d.Side1 != PlayableValue())
                 {
                     mustFlip = true;
                 }

@@ -13,6 +13,9 @@ namespace MTDClasses
         /// </summary>
         private Hand myHand;
 
+        /// <summary>
+        /// This is the boolean control variable to indicate whether this player train is open to other players
+        /// </summary>
         private bool isTrainOpen = false;
 
         /// <summary>

@@ -297,14 +297,14 @@ namespace MTDClasses
         /// <returns></returns>
         public Domino Play(Train t)
         {
-            Domino d = GetDomino(t.PlayableValue);
+            Domino d = GetDomino(t.PlayableValue());
             if (d == null)
             {
                 throw new ArgumentException("There is no playable domino in this hand");
             }
-            if (d.Side2 == t.PlayableValue)
+            if (d.Side2 == t.PlayableValue())
             {
-                if (d.Side1 != t.PlayableValue)
+                if (d.Side1 != t.PlayableValue())
                 {
                     d.Flip();
                 }

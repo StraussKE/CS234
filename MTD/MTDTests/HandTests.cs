@@ -63,6 +63,34 @@ namespace MTDTests
         }
 
         [Test]
+        public void TestInvalidPlayerCountLow()
+        {
+            try
+            {
+                Hand invalidHand = new Hand(maxTwelve, 1);
+                Assert.Fail("The constructor should throw an exception for values below 2");
+            }
+            catch (ArgumentException)
+            {
+                Assert.Pass("The constructor threw an exception for a value less than 2 as expected");
+            }
+        }
+
+        [Test]
+        public void TestInvalidPlayerCountHigh()
+        {
+            try
+            {
+                Hand invalidHand = new Hand(maxTwelve, 9);
+                Assert.Fail("The constructor should throw an exception for values above 8");
+            }
+            catch (ArgumentException)
+            {
+                Assert.Pass("The constructor threw an exception for a value greater than 8 as expected");
+            }
+        }
+
+        [Test]
         public void TestIsEmpty()
         {
             Assert.AreEqual(empty.Count, 0);
@@ -166,13 +194,80 @@ namespace MTDTests
             Assert.AreEqual(d34, empty.GetDomino(4));
 
             Assert.AreEqual(d99, empty.GetDoubleDomino(9));
-
         }
 
         [Test]
         public void testPlay()
         {
-            
+            PlayerTrain myTrain = new PlayerTrain(empty, 12);
+            MexicanTrain mexiTrain = new MexicanTrain(12);
+
+            Domino dBB = new Domino(12, 12);
+            Domino dB4 = new Domino(12, 4);
+            Domino d4B = new Domino(4, 12);
+            Domino d73 = new Domino(7, 3);
+
+            empty.Add(dBB);
+
+            try
+            {
+                empty.Play(dBB, myTrain);
+            }
+            catch(ArgumentException)
+            {
+                Assert.Fail("Indicated domino should be playable on player train.");
+            }
+
+            empty.Add(dBB);
+
+            try
+            {
+                empty.Play(dBB, mexiTrain);
+            }
+            catch (ArgumentException)
+            {
+                Assert.Fail("Indicated domino should be playable on mexican train.");
+            }
+
+            empty.Add(d73);
+
+            try
+            {
+                empty.Play(d73, mexiTrain);
+                Assert.Fail("Indicated domino should not be playable at this time.");
+            }
+            catch (ArgumentException) { }
+
+            empty.Add(dB4);
+
+            try
+            {
+                empty.Play(myTrain);
+            }
+            catch (ArgumentException)
+            {
+                Assert.Fail("Playable domino exists in player hand.");
+            }
+
+            empty.Add(d4B);
+
+            try
+            {
+                empty.Play(mexiTrain);
+            }
+            catch (ArgumentException)
+            {
+                Assert.Fail("Playable domino exists in player hand.");
+            }
+
+            try
+            {
+                empty.Play(myTrain);
+                Assert.Fail("No playable domino exists in player hand.");
+            }
+            catch { }
+
+            Assert.Pass("All try/catch play tests completed successfully.");
         }
     }
 }

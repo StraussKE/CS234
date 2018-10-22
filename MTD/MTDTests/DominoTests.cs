@@ -70,7 +70,7 @@ namespace MTDTests
             }
             catch (ArgumentException)
             {
-                Assert.Pass("The setter threw an exception for a negative value as expected");
+                Assert.Pass ("The setter threw an exception for a negative value as expected");
             }
             try
             {
