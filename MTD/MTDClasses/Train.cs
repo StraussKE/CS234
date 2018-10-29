@@ -8,7 +8,7 @@ namespace MTDClasses
     /// <summary>
     /// Represents a generic Train for MTD
     /// </summary>
-    public abstract class Train
+    public abstract class Train : IEnumerable<Domino>
     {
 
         /// <summary>
@@ -123,6 +123,20 @@ namespace MTDClasses
                 chooChoo = d.ToString() + " ";
             }
             return chooChoo;
+        }
+
+        public IEnumerator<Domino> GetEnumerator()
+        {
+            foreach (Domino item in currentTrain)
+            {
+                yield return item;
+            }               
+        }
+
+        System.Collections.IEnumerator
+            System.Collections.IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,9 +10,10 @@
   <Class Name="MTDClasses.Domino">
     <Position X="0.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAAQAIgEgACAEAEAAAAAEIAAAAAAAAAACAA=</HashCode>
+      <HashCode>AAAAABAAAAAQAIwEgACAEAEAAAAAEIAAAAAAAAAACAA=</HashCode>
       <FileName>Domino.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MTDClasses.Hand">
     <Position X="3.25" Y="0.5" Width="3.5" />
@@ -24,21 +25,22 @@
   <Class Name="MTDClasses.Train">
     <Position X="7" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAJCAAAAgAAAgIAECAAQAAQAAAAAAAgAgAAAAAAAAAA=</HashCode>
+      <HashCode>ACJCAAAAgAAAgJAECAAQAAQAAAAAAAgAgAAAAAAAAAA=</HashCode>
       <FileName>Train.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="MTDClasses.PlayerTrain">
-    <Position X="9.75" Y="5.25" Width="2.5" />
+    <Position X="10.25" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>IAAAAAAAAAAAIAAAAAAAAAAAACAAAAgAAAAAAACAACA=</HashCode>
       <FileName>PlayerTrain.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MTDClasses.MexicanTrain">
-    <Position X="7" Y="5.25" Width="2.5" />
+    <Position X="10.25" Y="3.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>MexicanTrain.cs</FileName>
     </TypeIdentifier>
   </Class>

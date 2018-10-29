@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoneYardTests.cs" />
+    <Compile Include="MexicanTrainTests.cs" />
     <Compile Include="DominoTests.cs" />
     <Compile Include="HandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

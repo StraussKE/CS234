@@ -14,15 +14,12 @@ namespace MTDTests
     {
         Hand empty;
         BoneYard maxTwelve;
-        Train testExpress;
 
         [SetUp]
         public void SetUpAllTests()
         {
             empty = new Hand();
             maxTwelve = new BoneYard(12);
-            testExpress = new MexicanTrain(0);
-            //stuff
         }
 
         [Test]
@@ -218,26 +215,6 @@ namespace MTDTests
                 Assert.Fail("Indicated domino should be playable on player train.");
             }
 
-            empty.Add(dBB);
-
-            try
-            {
-                empty.Play(dBB, mexiTrain);
-            }
-            catch (ArgumentException)
-            {
-                Assert.Fail("Indicated domino should be playable on mexican train.");
-            }
-
-            empty.Add(d73);
-
-            try
-            {
-                empty.Play(d73, mexiTrain);
-                Assert.Fail("Indicated domino should not be playable at this time.");
-            }
-            catch (ArgumentException) { }
-
             empty.Add(dB4);
 
             try
@@ -253,21 +230,138 @@ namespace MTDTests
 
             try
             {
-                empty.Play(mexiTrain);
-            }
-            catch (ArgumentException)
-            {
-                Assert.Fail("Playable domino exists in player hand.");
-            }
-
-            try
-            {
                 empty.Play(myTrain);
                 Assert.Fail("No playable domino exists in player hand.");
             }
             catch { }
 
             Assert.Pass("All try/catch play tests completed successfully.");
+        }
+
+        [Test]
+        public void TestPlayFirstPlayableDominoOnMexicanTrain()
+        {
+            MexicanTrain mexiTrain = new MexicanTrain(12);
+            Assert.AreEqual(mexiTrain.PlayableValue(), 12); // This test belongs in the mexican train class and is performed... because.  It makes sense to do it to me to illustrate since I wrote play differently than you did.
+
+            empty.Add(new Domino(12, 3));
+
+            try
+            {
+                empty.Play(mexiTrain);
+            }
+            catch (ArgumentException)
+            {
+                Assert.Fail("Indicated domino should be playable on mexican train.");
+            }
+
+            Assert.AreEqual(3, mexiTrain.PlayableValue());
+            Assert.AreEqual(1, mexiTrain.Count());
+        }
+
+        [Test]
+        public void TestPlaySpecifiedDominoOnMexicanTrain()
+        {
+            MexicanTrain mexiTrain = new MexicanTrain(12);
+            Domino testDomino = new Domino(12, 3);
+
+            empty.Add(testDomino);
+
+            try
+            {
+                empty.Play(testDomino, mexiTrain);
+            }
+            catch (ArgumentException)
+            {
+                Assert.Fail("Indicated domino should be playable on mexican train.");
+            }
+
+            Assert.AreEqual(3, mexiTrain.PlayableValue());
+            Assert.AreEqual(1, mexiTrain.Count());
+        }
+
+        [Test]
+        public void TestPlayFlippingDominoOnMexicanTrain()
+        {
+            MexicanTrain mexiTrain = new MexicanTrain(12);
+            Assert.AreEqual(mexiTrain.PlayableValue(), 12); // This test belongs in the mexican train class and is performed... because.  It makes sense to do it to me to illustrate since I wrote play differently than you did.
+
+            empty.Add(new Domino(3, 12));
+
+            try
+            {
+                empty.Play(mexiTrain);
+            }
+            catch (ArgumentException)
+            {
+                Assert.Fail("Indicated domino should be playable on mexican train.");
+            }
+
+            Assert.AreEqual(3, mexiTrain.PlayableValue());
+            Assert.AreEqual(1, mexiTrain.Count());
+        }
+
+        [Test]
+        public void TestPlayExceptionThrownInvalidDominoFirstPlayableDominoOnMexicanTrain()
+        {
+            MexicanTrain mexiTrain = new MexicanTrain(12);
+
+            empty.Add(new Domino(3, 4));
+
+            try
+            {
+                empty.Play(mexiTrain);
+                Assert.Fail("No playable Domino should exist in this hand.");
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual(
+                    "There is no playable domino in this hand",
+                    e.Message);
+            }
+        }
+
+        [Test]
+        public void TestPlayExceptionThrownInvalidDominoSpecifiedDominoOnMexicanTrain()
+        {
+            MexicanTrain mexiTrain = new MexicanTrain(12);
+            Domino testDomino = new Domino(4, 3);
+
+            empty.Add(testDomino);
+
+            try
+            {
+                empty.Play(testDomino, mexiTrain);
+                Assert.Fail("No playable Domino should exist in this hand.");
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual(
+                    "The selected domino is not playable on the selected train.",
+                    e.Message);
+            }
+        }
+
+        [Test]
+        public void TestPlayExceptionThrownInvalidDominoSpecifiedDominoNotInHand()
+        {
+            MexicanTrain mexiTrain = new MexicanTrain(12);
+            Domino dominoForHand = new Domino(4, 3);
+            Domino testDomino = new Domino(6, 7);
+
+            empty.Add(dominoForHand);
+
+            try
+            {
+                empty.Play(testDomino, mexiTrain);
+                Assert.Fail("Selected Domino does not exist in this hand.");
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual(
+                    "Selected domino is not contained in this hand.",
+                    e.Message);
+            }
         }
     }
 }

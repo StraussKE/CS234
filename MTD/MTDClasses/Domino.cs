@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MTDClasses
 {
     [Serializable()]
-    public class Domino
+    public class Domino : IComparable<Domino>
     {
         /// <summary>
         /// Constants to control the minimum number of pips and the maximum number of pips on a domino
@@ -142,5 +142,8 @@ namespace MTDClasses
         {
             return ToString().GetHashCode();                                        // also not full comprehension on my behalf here, but it seems to be required
         }
+
+        public int CompareTo(Domino other) =>
+            this.Score.CompareTo(other.Score);
     }
 }
