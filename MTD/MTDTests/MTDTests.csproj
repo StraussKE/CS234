@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractTrainClassTests.cs" />
     <Compile Include="BoneYardTests.cs" />
     <Compile Include="MexicanTrainTests.cs" />
     <Compile Include="DominoTests.cs" />

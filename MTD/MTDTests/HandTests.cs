@@ -194,51 +194,6 @@ namespace MTDTests
         }
 
         [Test]
-        public void testPlay()
-        {
-            PlayerTrain myTrain = new PlayerTrain(empty, 12);
-            MexicanTrain mexiTrain = new MexicanTrain(12);
-
-            Domino dBB = new Domino(12, 12);
-            Domino dB4 = new Domino(12, 4);
-            Domino d4B = new Domino(4, 12);
-            Domino d73 = new Domino(7, 3);
-
-            empty.Add(dBB);
-
-            try
-            {
-                empty.Play(dBB, myTrain);
-            }
-            catch(ArgumentException)
-            {
-                Assert.Fail("Indicated domino should be playable on player train.");
-            }
-
-            empty.Add(dB4);
-
-            try
-            {
-                empty.Play(myTrain);
-            }
-            catch (ArgumentException)
-            {
-                Assert.Fail("Playable domino exists in player hand.");
-            }
-
-            empty.Add(d4B);
-
-            try
-            {
-                empty.Play(myTrain);
-                Assert.Fail("No playable domino exists in player hand.");
-            }
-            catch { }
-
-            Assert.Pass("All try/catch play tests completed successfully.");
-        }
-
-        [Test]
         public void TestPlayFirstPlayableDominoOnMexicanTrain()
         {
             MexicanTrain mexiTrain = new MexicanTrain(12);
