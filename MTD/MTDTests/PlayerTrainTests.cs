@@ -25,6 +25,20 @@ namespace MTDTests
         }
 
         [Test]
+        public void TestOpenCloseTrain()
+        {
+            Assert.False(playerOneTrain.IsOpen);
+
+            playerOneTrain.Open();
+
+            Assert.True(playerOneTrain.IsOpen);
+
+            playerOneTrain.Close();
+
+            Assert.False(playerOneTrain.IsOpen);
+        }
+
+        [Test]
         public void TestIsPlayableNoFlipYesPlay()
         {
             Domino playableNoFlip = new Domino(12, 11);
@@ -52,8 +66,6 @@ namespace MTDTests
         public void TestIsPlayableWrongHand()
         {
             Hand playerTwo = new Hand();
-            //playerOne.Add(new Domino(3, 4));
-            //playerTwo.Add(new Domino(5, 5));
             Domino playableNoFlip = new Domino(12, 11);
 
             Assert.False(playerOneTrain.IsPlayable(playerTwo, playableNoFlip, out mustFlip));
